@@ -13,6 +13,9 @@ import org.greenrobot.greendao.annotation.NotNull;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
+import java.util.SimpleTimeZone;
+
 import org.greenrobot.greendao.annotation.Generated;
 
 
@@ -23,63 +26,118 @@ import org.greenrobot.greendao.annotation.Generated;
 public class Post {
 
     @Id
-    private Long id;
+    protected Long id;
+
+
+    protected String  date;
 
     @NotNull
-    private Date date;
-    private String Content;
-    private String  contentUrl;
-    private String  thumbnailUrl;
-    private boolean hasBeenReaden;
-    @Generated(hash = 1377701131)
-    public Post(Long id, @NotNull Date date, String Content, String contentUrl,
-            String thumbnailUrl, boolean hasBeenReaden) {
+    protected String title;
+    protected String ga_prefix;
+    protected int type;
+    protected String  thumbnailUrl;
+    protected boolean hasBeenReaden;
+
+
+    protected int popularity;
+
+
+    @Generated(hash = 580308733)
+    public Post(Long id, String date, @NotNull String title, String ga_prefix,
+            int type, String thumbnailUrl, boolean hasBeenReaden, int popularity) {
         this.id = id;
         this.date = date;
-        this.Content = Content;
-        this.contentUrl = contentUrl;
+        this.title = title;
+        this.ga_prefix = ga_prefix;
+        this.type = type;
         this.thumbnailUrl = thumbnailUrl;
         this.hasBeenReaden = hasBeenReaden;
+        this.popularity = popularity;
     }
+
+
     @Generated(hash = 1782702645)
     public Post() {
-
     }
+
+
     public Long getId() {
         return this.id;
     }
+
+
     public void setId(Long id) {
         this.id = id;
     }
-    public Date getDate() {
+
+
+    public String getDate() {
         return this.date;
     }
-    public void setDate(Date date) {
+
+
+    public void setDate(String date) {
         this.date = date;
     }
-    public String getContent() {
-        return this.Content;
+
+
+    public String getTitle() {
+        return this.title;
     }
-    public void setContent(String Content) {
-        this.Content = Content;
+
+
+    public void setTitle(String title) {
+        this.title = title;
     }
-    public String getContentUrl() {
-        return this.contentUrl;
+
+
+    public String getGa_prefix() {
+        return this.ga_prefix;
     }
-    public void setContentUrl(String contentUrl) {
-        this.contentUrl = contentUrl;
+
+
+    public void setGa_prefix(String ga_prefix) {
+        this.ga_prefix = ga_prefix;
     }
+
+
+    public int getType() {
+        return this.type;
+    }
+
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+
     public String getThumbnailUrl() {
         return this.thumbnailUrl;
     }
+
+
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
     }
+
+
     public boolean getHasBeenReaden() {
         return this.hasBeenReaden;
     }
+
+
     public void setHasBeenReaden(boolean hasBeenReaden) {
         this.hasBeenReaden = hasBeenReaden;
+    }
+
+
+    public int getPopularity() {
+        return this.popularity;
+    }
+
+
+    public void setPopularity(int popularity) {
+        this.popularity = popularity;
     }
 
 }

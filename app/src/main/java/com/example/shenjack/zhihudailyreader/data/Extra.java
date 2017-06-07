@@ -1,11 +1,13 @@
-package com.example.shenjack.zhihudailyreader.data.source;
+package com.example.shenjack.zhihudailyreader.data;
 
 import com.google.gson.annotations.SerializedName;
+
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by ShenJack on 2017/6/2.
  */
-
 public class Extra {
     @SerializedName("long_comments")
     private int amountOfLongComments;
@@ -18,4 +20,5 @@ public class Extra {
 
     @SerializedName("popularity")
     private int popularity;
+
 }

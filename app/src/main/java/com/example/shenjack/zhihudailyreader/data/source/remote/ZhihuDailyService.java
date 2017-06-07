@@ -1,5 +1,8 @@
 package com.example.shenjack.zhihudailyreader.data.source.remote;
 
+import android.database.Observable;
+
+import com.example.shenjack.zhihudailyreader.data.Extra;
 import com.example.shenjack.zhihudailyreader.data.Post;
 
 import java.util.List;
@@ -12,7 +15,7 @@ import retrofit2.http.Path;
  * Created by ShenJack on 2017/6/2.
  */
 
-public interface ZhuhuDailyService {
+public interface ZhihuDailyService {
 
     public final String BASE_URL = "http://news-at.zhihu.com/api/";
 
@@ -20,7 +23,7 @@ public interface ZhuhuDailyService {
 
 
     @GET("4/news/{id}")
-    Call<Post> getPost(@Path("id") int id);
+    Observable<Post> getPostDetail(@Path("id") int id);
 
 //    prefetch launch image
 //    @GET("7/prefetch-launch-images/1080*1920")
@@ -28,24 +31,20 @@ public interface ZhuhuDailyService {
 
 //    get latest news
     @GET("4/news/latest")
-    Call<List<Post>> getLatestPosts();
+    Observable<List<Post>> getTodayPosts();
 
 //    get past news
     @GET("4/news/before/{date}")
-    Call<List<Post>> getBeforePosts();
+    Observable<List<Post>> getBeforePosts(@Path("date") String date);
 
 //    get news' extra
-//    @GET("4/story-extra/{id}")
-//    Call<>
+    @GET("4/story-extra/{id}")
+    Observable<Extra> getPostExtra(@Path("id") int id);
 
 //    get themes
-//    @GET
 
 //    get themes' content
 
-//    get hot posts
-    @GET("3/news/hot")
-    Call<List<Post>> getHotPosts();
 
 
 }

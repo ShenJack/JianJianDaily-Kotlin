@@ -1,11 +1,14 @@
 package com.example.shenjack.zhihudailyreader.data.source;
 
+import android.database.Observable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.example.shenjack.zhihudailyreader.data.Post;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Observer;
 
 /**
  * Created by ShenJack on 2017/6/1.
@@ -18,11 +21,13 @@ public interface PostDataSource {
         void onDataNotAvailable();
     }
 
-    @Nullable
-    List<Post> getPosts();
+    void init();
 
-    @Nullable
-    Post getPost(@NonNull String postId);
+    void getTodayPosts();
+
+    void getBeforePosts(String  date);
+
+    void getPost(@NonNull String postId);
 
     void savePost(@NonNull Post post);
 

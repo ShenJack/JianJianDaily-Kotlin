@@ -4,10 +4,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.example.shenjack.zhihudailyreader.data.Post;
+import com.example.shenjack.zhihudailyreader.data.source.local.PostLocalDataSource;
+import com.example.shenjack.zhihudailyreader.data.source.remote.PostRemoteDataSource;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static com.example.shenjack.zhihudailyreader.Util.Util.checkNotNull;
+
 
 /**
  * Created by ShenJack on 2017/6/1.
@@ -21,7 +26,7 @@ public class PostRepository implements PostDataSource{
 
     private final PostDataSource mPostRemoteDataSource;
 
-    private List<PostRepositoryBObserver> mObservers = new ArrayList<PostRepositoryBObserver>();
+    private List<PostRepositoryObserver> mObservers = new ArrayList<PostRepositoryObserver>();
 
     Map<String, Post> mCachedPosts;
 
@@ -47,12 +52,39 @@ public class PostRepository implements PostDataSource{
     }
 
 
+    public static PostRepository getInstance(PostLocalDataSource postLocalDataSource,
+                                             PostRemoteDataSource postRemoteDataSource){
+        if(instance == null){
+            instance = new PostRepository(postLocalDataSource,postRemoteDataSource);
+        }
+
+        return instance;
+    }
+
+    public PostRepository(PostDataSource postLocalDataSource, PostDataSource postRemoteDataSource) {
+        mPostLocalDataSource = checkNotNull(postLocalDataSource);
+        mPostRemoteDataSource = checkNotNull(postRemoteDataSource);
+    }
 
 
+    @Override
+    public void init() {
+
+    }
 
     @Nullable
     @Override
-    public List<Post> getPosts() {
+    public List<Post> getTodayPosts() {
+        return null;
+    }
+
+    @Override
+    public List<Post> getTopPosts() {
+        return null;
+    }
+
+    @Override
+    public List<Post> getBeforePosts(String date) {
         return null;
     }
 
@@ -82,7 +114,7 @@ public class PostRepository implements PostDataSource{
 
     }
 
-    public interface PostRepositoryBObserver {
+    public interface PostRepositoryObserver {
 
         void onPostChanged();
 
