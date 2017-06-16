@@ -1,4 +1,4 @@
-package com.example.shenjack.zhihudailyreader.postlist;
+package com.example.shenjack.zhihudailyreader.stoylist;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -11,13 +11,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import com.example.shenjack.zhihudailyreader.R;
+import com.example.shenjack.zhihudailyreader.data.source.StoryRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
 
-public class PostListActivity extends AppCompatActivity {
+import static com.example.shenjack.zhihudailyreader.Util.Util.getBeforeDate;
+
+public class StoryListActivity extends AppCompatActivity {
+
+    private StoryListPresenter mStoryListPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +37,10 @@ public class PostListActivity extends AppCompatActivity {
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+
+
         initView();
+
 
 
     }
@@ -43,19 +52,26 @@ public class PostListActivity extends AppCompatActivity {
     }
 
     private void initView(){
+
+
+
         setTitle("Reader");
 
-        List<Fragment> fragments = new ArrayList<>();
+        List<Fragment> storyListFragments = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
-            fragments.add(new PostListFragment());
+
+            String date = getBeforeDate(-i);
+            StoryListFragment storyListFragment = StoryListFragment.newInstance(date);
+            storyListFragments.add(storyListFragment);
         }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         ViewPager viewPager = ButterKnife.findById(this, R.id.viewpager);
 
-        PostListViewPagerAdapter postListViewPagerAdapter = new PostListViewPagerAdapter(fragmentManager,fragments,this);
+        StoryListViewPagerAdapter storyListViewPagerAdapter = new StoryListViewPagerAdapter(fragmentManager,storyListFragments,this);
 
-        viewPager.setAdapter(postListViewPagerAdapter);
+        viewPager.setAdapter(storyListViewPagerAdapter);
+        viewPager.setOffscreenPageLimit(1);
 
         TabLayout tabs = ButterKnife.findById(this,R.id.tabs);
 

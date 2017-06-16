@@ -3,7 +3,11 @@ package com.example.shenjack.zhihudailyreader.data.source;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.example.shenjack.zhihudailyreader.data.BeforePosts;
+import com.example.shenjack.zhihudailyreader.data.Detail;
 import com.example.shenjack.zhihudailyreader.data.Post;
+import com.example.shenjack.zhihudailyreader.data.StoriesBean;
+import com.example.shenjack.zhihudailyreader.data.TodayPosts;
 import com.example.shenjack.zhihudailyreader.data.source.local.PostLocalDataSource;
 import com.example.shenjack.zhihudailyreader.data.source.remote.PostRemoteDataSource;
 
@@ -18,9 +22,9 @@ import static com.example.shenjack.zhihudailyreader.Util.Util.checkNotNull;
  * Created by ShenJack on 2017/6/1.
  */
 
-public class PostRepository implements PostDataSource{
+public class StoryRepository implements PostDataSource{
 
-    private static PostRepository instance = null;
+    private static StoryRepository instance = null;
 
     private final PostDataSource mPostLocalDataSource;
 
@@ -38,9 +42,9 @@ public class PostRepository implements PostDataSource{
         return mCachedPosts.get(postId);
     }
 
-    private void saveTaskInLocalDataSource(List<Post> posts){
+    private void saveTaskInLocalDataSource(List<StoriesBean> posts){
         if(posts !=null){
-            for (Post post:posts
+            for (StoriesBean post:posts
                     ){
                 mPostLocalDataSource.savePost(post);
             }
@@ -52,62 +56,67 @@ public class PostRepository implements PostDataSource{
     }
 
 
-    public static PostRepository getInstance(PostLocalDataSource postLocalDataSource,
-                                             PostRemoteDataSource postRemoteDataSource){
+    public static StoryRepository getInstance(PostLocalDataSource postLocalDataSource,
+                                              PostRemoteDataSource postRemoteDataSource){
         if(instance == null){
-            instance = new PostRepository(postLocalDataSource,postRemoteDataSource);
+            instance = new StoryRepository(postLocalDataSource,postRemoteDataSource);
         }
 
         return instance;
     }
 
-    public PostRepository(PostDataSource postLocalDataSource, PostDataSource postRemoteDataSource) {
+    public static StoryRepository getInstance(){
+        if(instance == null){
+            instance = new StoryRepository(PostLocalDataSource.getInstance(),PostRemoteDataSource.getInstance());
+        }
+
+        return instance;
+    }
+
+    public StoryRepository(PostDataSource postLocalDataSource, PostDataSource postRemoteDataSource) {
         mPostLocalDataSource = checkNotNull(postLocalDataSource);
         mPostRemoteDataSource = checkNotNull(postRemoteDataSource);
     }
 
 
-    @Override
-    public void init() {
-
-    }
 
     @Nullable
     @Override
-    public List<Post> getTodayPosts() {
-        return null;
+    public io.reactivex.Observable<TodayPosts> getTodayPosts() {
+        return mPostRemoteDataSource.getTodayPosts();
     }
 
     @Override
-    public List<Post> getTopPosts() {
-        return null;
+    public io.reactivex.Observable<BeforePosts> getBeforePosts(String date) {
+        return mPostRemoteDataSource.getBeforePosts(date);
     }
 
     @Override
-    public List<Post> getBeforePosts(String date) {
+    public io.reactivex.Observable<List<TodayPosts.TopStoriesBean>> getTopPosts() {
         return null;
     }
 
     @Nullable
     @Override
-    public Post getPost(@NonNull String postId) {
+    public io.reactivex.Observable<Detail> getPostDetail(@NonNull String postId) {
         return null;
     }
 
     @Override
-    public void savePost(@NonNull Post post) {
+    public void savePost(@NonNull StoriesBean storiesBean) {
 
     }
 
     @Override
-    public void readPost(@NonNull Post post) {
+    public void readPost(@NonNull StoriesBean storiesBean) {
 
     }
 
     @Override
-    public void readPost(@NonNull String postId) {
+    public void readPost(@NonNull int postId) {
 
     }
+
 
     @Override
     public void refreshPosts() {

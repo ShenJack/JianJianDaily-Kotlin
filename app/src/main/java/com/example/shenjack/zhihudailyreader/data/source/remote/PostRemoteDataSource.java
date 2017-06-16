@@ -1,20 +1,21 @@
 package com.example.shenjack.zhihudailyreader.data.source.remote;
 
-import android.content.Context;
-import android.database.Observable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.example.shenjack.zhihudailyreader.data.Post;
+import com.example.shenjack.zhihudailyreader.data.BeforePosts;
+import com.example.shenjack.zhihudailyreader.data.Detail;
+import com.example.shenjack.zhihudailyreader.data.StoriesBean;
+import com.example.shenjack.zhihudailyreader.data.TodayPosts;
 import com.example.shenjack.zhihudailyreader.data.source.PostDataSource;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+
 
 /**
  * Created by ShenJack on 2017/6/5.
@@ -22,76 +23,74 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PostRemoteDataSource implements PostDataSource {
 
-    private Retrofit retrofit;
+    private ZhihuDailyApi service;
+    private static PostDataSource instance;
 
-    ZhihuDailyService service;
 
+    public PostRemoteDataSource() {
+        Retrofit retrofit = ZhihuDailyService.getRetrofitInstance();
+        service = ZhihuDailyService.getZhihuDailyServiceInstance();
+    }
 
-    Context mContext;
-
-    @Override
-    public void init() {
-
-        retrofit =  new Retrofit
-                .Builder()
-                .baseUrl(ZhihuDailyService.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        service =  retrofit
-                .create(ZhihuDailyService.class);
+    public static PostDataSource getInstance() {
+        if(instance==null)instance = new PostRemoteDataSource();
+        return instance;
     }
 
     @Nullable
     @Override
-    public Observable<List<Post>> getTodayPosts() {
+    public io.reactivex.Observable<TodayPosts> getTodayPosts() {
+        return service.getTodayPosts().subscribeOn(io.reactivex.schedulers.Schedulers.io());
+    }
 
+    @Override
+    public io.reactivex.Observable<List<TodayPosts.TopStoriesBean>> getTopPosts() {
+        return service.getTopPosts().subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public io.reactivex.Observable<BeforePosts> getBeforePosts(String date) {
+        return service.getBeforePosts(date).subscribeOn(Schedulers.io());
     }
 
     @Nullable
     @Override
-    public Observable<List<Post>> getTopPosts() {
-        Call<List<Post>> call = service.getTodayPosts();
-        call.enqueue(new Callback<List<Post>>() {
-            @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                return response.body();
-                // TODO: 2017/6/5 Handler on mainThread ????
-            }
+    public io.reactivex.Observable<Detail> getPostDetail(@NonNull String postId) {
 
-            @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
-
-            }
-        });
-        return null;
+        return service.getPostDetail(postId).subscribeOn(Schedulers.io());
     }
 
     @Override
-    public Observable<List<Post>> getBeforePosts(String date) {
-        return null;
-    }
-
-    @Nullable
-    @Override
-    public Observable<Post> getPost(@NonNull String postId) {
-        return null;
-    }
-
-    @Override
-    public void savePost(@NonNull Post post) {
+    public void savePost(@NonNull StoriesBean storiesBean) {
 
     }
 
     @Override
-    public void readPost(@NonNull Post post) {
+    public void readPost(@NonNull StoriesBean storiesBean) {
 
     }
 
     @Override
-    public void readPost(@NonNull String postId) {
+    public void readPost(@NonNull int postId) {
 
     }
+
+
+//    @Override
+//    public void savePost(@NonNull BeforePosts.StoriesBean post) {
+//        StoryRepository.getInstance().savePost(post);
+//    }
+//
+//    @Override
+//    public void readPost(@NonNull BeforePosts.StoriesBean post) {
+//        StoryRepository.getInstance().readPost(post);
+//    }
+//
+//    @Override
+//    public void readPost(@NonNull int postId) {
+//        StoryRepository.getInstance().readPost(postId);
+//    }
+
 
     @Override
     public void refreshPosts() {

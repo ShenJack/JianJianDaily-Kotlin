@@ -29,7 +29,7 @@ public class Post {
     protected Long id;
 
 
-    protected String  date;
+    protected String date;
 
     @NotNull
     protected String title;

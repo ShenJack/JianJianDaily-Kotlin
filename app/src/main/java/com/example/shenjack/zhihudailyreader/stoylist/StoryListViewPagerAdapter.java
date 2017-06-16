@@ -1,14 +1,13 @@
-package com.example.shenjack.zhihudailyreader.postlist;
+package com.example.shenjack.zhihudailyreader.stoylist;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.support.v4.app.BundleCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -16,14 +15,14 @@ import java.util.List;
  * Created by ShenJack on 2017/5/29.
  */
 
-class PostListViewPagerAdapter extends FragmentPagerAdapter {
+class StoryListViewPagerAdapter extends FragmentPagerAdapter {
     private static final int PAGE_COUNT = 7;
     private List<Fragment> mFragments;
 
 
     private Context context;
 
-    public PostListViewPagerAdapter(FragmentManager fm, List<Fragment> fragments, Context context) {
+    public StoryListViewPagerAdapter(FragmentManager fm, List<Fragment> fragments, Context context) {
         super(fm);
         this.context = context;
         mFragments = fragments;
@@ -42,12 +41,18 @@ class PostListViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         Calendar date = Calendar.getInstance();
-        date.add(Calendar.DAY_OF_WEEK,-position);
+        date.add(Calendar.DAY_OF_WEEK, -position);
 
-        if(position==0){
-            return "Today";
-        }else {
-            return DateFormat.getDateInstance().format(date.getTime()).substring(5);
+
+        switch (position) {
+            case 0:
+                return "今天";
+            case 1:
+                return "昨天";
+            case 2:
+                return "前天";
+            default:
+                return DateFormat.getDateInstance().format(date.getTime());
         }
     }
 }

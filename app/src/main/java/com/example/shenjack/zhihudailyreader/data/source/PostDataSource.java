@@ -1,14 +1,14 @@
 package com.example.shenjack.zhihudailyreader.data.source;
 
-import android.database.Observable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
+import com.example.shenjack.zhihudailyreader.data.BeforePosts;
+import com.example.shenjack.zhihudailyreader.data.Detail;
 import com.example.shenjack.zhihudailyreader.data.Post;
+import com.example.shenjack.zhihudailyreader.data.StoriesBean;
+import com.example.shenjack.zhihudailyreader.data.TodayPosts;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Observer;
 
 /**
  * Created by ShenJack on 2017/6/1.
@@ -21,19 +21,20 @@ public interface PostDataSource {
         void onDataNotAvailable();
     }
 
-    void init();
 
-    void getTodayPosts();
+    io.reactivex.Observable<TodayPosts> getTodayPosts();
 
-    void getBeforePosts(String  date);
+    io.reactivex.Observable<List<TodayPosts.TopStoriesBean>> getTopPosts();
 
-    void getPost(@NonNull String postId);
+    io.reactivex.Observable<BeforePosts> getBeforePosts(String  date);
 
-    void savePost(@NonNull Post post);
+    io.reactivex.Observable<Detail> getPostDetail(@NonNull String postId);
 
-    void readPost(@NonNull Post post);
+    void savePost(@NonNull StoriesBean storiesBean);
 
-    void readPost(@NonNull String postId);
+    void readPost(@NonNull StoriesBean storiesBean);
+
+    void readPost(@NonNull int postId);
 
     void refreshPosts();
 

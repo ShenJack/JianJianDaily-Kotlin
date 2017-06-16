@@ -1,50 +1,39 @@
 package com.example.shenjack.zhihudailyreader.data.source.remote;
 
-import android.database.Observable;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-import com.example.shenjack.zhihudailyreader.data.Extra;
-import com.example.shenjack.zhihudailyreader.data.Post;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by ShenJack on 2017/6/2.
+ * Created by ShenJack on 2017/6/8.
  */
 
-public interface ZhihuDailyService {
+public class ZhihuDailyService {
+    private static Retrofit retrofit;
 
-    public final String BASE_URL = "http://news-at.zhihu.com/api/";
+    private static ZhihuDailyApi zhihuDailyService;
 
-//
+    public static Retrofit getRetrofitInstance() {
 
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyymmdd")
+                .create();
+        // TODO: 2017/6/8 Gson not yet
+        if(retrofit !=null)return retrofit;
+        else retrofit = new Retrofit.Builder()
+                .baseUrl(ZhihuDailyApi.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+        return retrofit;
+    }
 
-    @GET("4/news/{id}")
-    Observable<Post> getPostDetail(@Path("id") int id);
-
-//    prefetch launch image
-//    @GET("7/prefetch-launch-images/1080*1920")
-//    Call
-
-//    get latest news
-    @GET("4/news/latest")
-    Observable<List<Post>> getTodayPosts();
-
-//    get past news
-    @GET("4/news/before/{date}")
-    Observable<List<Post>> getBeforePosts(@Path("date") String date);
-
-//    get news' extra
-    @GET("4/story-extra/{id}")
-    Observable<Extra> getPostExtra(@Path("id") int id);
-
-//    get themes
-
-//    get themes' content
-
-
-
+    public static ZhihuDailyApi getZhihuDailyServiceInstance(){
+        if(zhihuDailyService!=null)return zhihuDailyService;
+        else zhihuDailyService = getRetrofitInstance().create(ZhihuDailyApi.class);
+        return zhihuDailyService;
+    }
 }
