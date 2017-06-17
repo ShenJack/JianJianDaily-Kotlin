@@ -26,7 +26,7 @@ public interface ZhihuDailyApi {
 
 
     @GET("4/news/{id}")
-    Observable<Detail> getPostDetail(@Path("id") String  id);
+    Observable<Detail> getStoryDetail(@Path("id") String  id);
 
 //    prefetch launch image
 //    @GET("7/prefetch-launch-images/1080*1920")
@@ -34,20 +34,20 @@ public interface ZhihuDailyApi {
 
 //    get latest news
     @GET("4/news/latest")
-    Observable<TodayPosts> getTodayPosts();
+    Observable<TodayPosts> getTodayStories();
 
     @GET("4/news/latest")
-    Observable<List<TodayPosts.TopStoriesBean>> getTopPosts();
+    Observable<List<TodayPosts.TopStoriesBean>> getTopStories();
 
 
 //    get past news
     @GET("4/news/before/{date}")
-    Observable<BeforePosts> getBeforePosts(@Path("date") String date);
+    Observable<BeforePosts> getBeforeStories(@Path("date") String date);
 
 
 //    get news' extra
     @GET("4/story-extra/{id}")
-    Observable<Extra> getPostExtra(@Path("id") int id);
+    Observable<Extra> getStoryExtra(@Path("id") int id);
 
 //    get themes
 

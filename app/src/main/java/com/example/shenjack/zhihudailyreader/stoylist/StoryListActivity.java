@@ -1,5 +1,7 @@
 package com.example.shenjack.zhihudailyreader.stoylist;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,10 +25,12 @@ import static com.example.shenjack.zhihudailyreader.Util.Util.getBeforeDate;
 
 public class StoryListActivity extends AppCompatActivity {
 
-    private StoryListPresenter mStoryListPresenter;
+    private static StoryListActivity  instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        instance = this;
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_post_list);
@@ -77,5 +81,10 @@ public class StoryListActivity extends AppCompatActivity {
 
         tabs.setupWithViewPager(viewPager);
 
+    }
+
+    public static StoryListActivity getInstance() {
+
+        return instance;
     }
 }

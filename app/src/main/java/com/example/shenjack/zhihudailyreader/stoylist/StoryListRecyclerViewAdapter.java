@@ -86,24 +86,22 @@ public class StoryListRecyclerViewAdapter extends RecyclerView.Adapter<StoryList
     }
 
     class StoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        int storyId;
+        int  storyId;
         TextView title;
         ImageView imageView;
         public StoryViewHolder(View itemView) {
             super(itemView);
             title = ButterKnife.findById(itemView, R.id.title);
             imageView = ButterKnife.findById(itemView,R.id.thumbnail_image);
+            itemView.setOnClickListener(this);
         }
-
         @Override
         public void onClick(View v) {
             storyListAdapterOnClickListener.onClick(getStoryId());
         }
-
         public int getStoryId() {
             return storyId;
         }
     }
-
 
 }

@@ -14,7 +14,7 @@ import java.util.List;
  * Created by ShenJack on 2017/6/1.
  */
 
-public interface PostDataSource {
+public interface StoryDataSource {
     interface GetPostCallBack{
         void onPostLoaded(Post post);
 
@@ -22,13 +22,13 @@ public interface PostDataSource {
     }
 
 
-    io.reactivex.Observable<TodayPosts> getTodayPosts();
+    io.reactivex.Observable<TodayPosts> getTodayStories();
 
-    io.reactivex.Observable<List<TodayPosts.TopStoriesBean>> getTopPosts();
+    io.reactivex.Observable<List<TodayPosts.TopStoriesBean>> getTopStories();
 
-    io.reactivex.Observable<BeforePosts> getBeforePosts(String  date);
+    io.reactivex.Observable<BeforePosts> getBeforeStories(String  date);
 
-    io.reactivex.Observable<Detail> getPostDetail(@NonNull String postId);
+    io.reactivex.Observable<Detail> getStoryDetail(@NonNull String postId);
 
     void savePost(@NonNull StoriesBean storiesBean);
 

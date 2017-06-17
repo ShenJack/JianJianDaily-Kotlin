@@ -11,23 +11,20 @@ import com.example.shenjack.zhihudailyreader.data.Post;
 import com.example.shenjack.zhihudailyreader.data.PostDao;
 import com.example.shenjack.zhihudailyreader.data.StoriesBean;
 import com.example.shenjack.zhihudailyreader.data.TodayPosts;
-import com.example.shenjack.zhihudailyreader.data.source.PostDataSource;
+import com.example.shenjack.zhihudailyreader.data.source.StoryDataSource;
 
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 
 /**
  * Created by ShenJack on 2017/6/3.
  */
 
-public class PostLocalDataSource implements PostDataSource {
+public class StoryLocalDataSource implements StoryDataSource {
 
-    private static PostLocalDataSource instance;
+    private static StoryLocalDataSource instance;
 
     private DaoSession daoSession;
 
@@ -36,7 +33,7 @@ public class PostLocalDataSource implements PostDataSource {
     private PostDao mPostDao;
 
 
-    public PostLocalDataSource() {
+    public StoryLocalDataSource() {
         MyApplication myApplication  = MyApplication.getInstance();
         daoSession = myApplication.getDaoSession();
         mPostDao = daoSession.getPostDao();
@@ -47,24 +44,24 @@ public class PostLocalDataSource implements PostDataSource {
 
 //    @Nullable
 //    @Override
-//    public Observable<TodayPosts> getTodayPosts() {
+//    public Observable<TodayPosts> getTodayStories() {
 //        return makeObservableList(Util.getTodayDate());
 //    }
 //
 //    @Override
-//    public Observable<List<TodayPosts.TopStoriesBean>> getTopPosts() {
+//    public Observable<List<TodayPosts.TopStoriesBean>> getTopStories() {
 //        return null;
 //    }
 //
 //
 //    @Override
-//    public Observable<BeforePosts> getBeforePosts(String  date) {
+//    public Observable<BeforePosts> getBeforeStories(String  date) {
 //        return makeObservableList(date);
 //    }
 //
 //    @Nullable
 //    @Override
-//    public Observable<Detail> getPostDetail(@NonNull String postId) {
+//    public Observable<Detail> loadStoryDetail(@NonNull String postId) {
 //        return makeObservable(postId);
 //    }
 
@@ -72,7 +69,7 @@ public class PostLocalDataSource implements PostDataSource {
 //    public void savePost(@NonNull Post post) {
 //        mPostDao.insert(post);
 //    }
-//
+
 //    @Override
 //    public void readPost(@NonNull Post post) {
 //        post.setHasBeenReaden(true);
@@ -84,25 +81,25 @@ public class PostLocalDataSource implements PostDataSource {
 //        Post post = getPostbyId(postId);
 //        post.setHasBeenReaden(true);
 //        mPostDao.update(post);
-//    }
+//}
 
     @Override
-    public Observable<TodayPosts> getTodayPosts() {
+    public Observable<TodayPosts> getTodayStories() {
         return null;
     }
 
     @Override
-    public Observable<List<TodayPosts.TopStoriesBean>> getTopPosts() {
+    public Observable<List<TodayPosts.TopStoriesBean>> getTopStories() {
         return null;
     }
 
     @Override
-    public Observable<BeforePosts> getBeforePosts(String date) {
+    public Observable<BeforePosts> getBeforeStories(String date) {
         return null;
     }
 
     @Override
-    public Observable<Detail> getPostDetail(@NonNull String postId) {
+    public Observable<Detail> getStoryDetail(@NonNull String postId) {
         return null;
     }
 
@@ -126,9 +123,9 @@ public class PostLocalDataSource implements PostDataSource {
 
     }
 
-    public static PostLocalDataSource getInstance(){
+    public static StoryLocalDataSource getInstance(){
         if(instance == null){
-            instance = new PostLocalDataSource();
+            instance = new StoryLocalDataSource();
         }
         return instance;
     }

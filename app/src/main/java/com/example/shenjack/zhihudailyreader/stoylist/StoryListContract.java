@@ -23,14 +23,13 @@ public interface StoryListContract {
         void showDateSelector();
 
 
-        void setStories(List<StoriesBean> mStories);
+        void setStories(List<StoriesBean> stories);
 
         String getDate();
 
         void notifyLoadingComplete();
 
         void notifyLoadingError();
-
 
     }
 

@@ -7,12 +7,10 @@ import com.example.shenjack.zhihudailyreader.data.BeforePosts;
 import com.example.shenjack.zhihudailyreader.data.Detail;
 import com.example.shenjack.zhihudailyreader.data.StoriesBean;
 import com.example.shenjack.zhihudailyreader.data.TodayPosts;
-import com.example.shenjack.zhihudailyreader.data.source.PostDataSource;
+import com.example.shenjack.zhihudailyreader.data.source.StoryDataSource;
 
 import java.util.List;
 
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
@@ -21,43 +19,43 @@ import retrofit2.Retrofit;
  * Created by ShenJack on 2017/6/5.
  */
 
-public class PostRemoteDataSource implements PostDataSource {
+public class StoryRemoteDataSource implements StoryDataSource {
 
     private ZhihuDailyApi service;
-    private static PostDataSource instance;
+    private static StoryDataSource instance;
 
 
-    public PostRemoteDataSource() {
+    public StoryRemoteDataSource() {
         Retrofit retrofit = ZhihuDailyService.getRetrofitInstance();
         service = ZhihuDailyService.getZhihuDailyServiceInstance();
     }
 
-    public static PostDataSource getInstance() {
-        if(instance==null)instance = new PostRemoteDataSource();
+    public static StoryDataSource getInstance() {
+        if(instance==null)instance = new StoryRemoteDataSource();
         return instance;
     }
 
     @Nullable
     @Override
-    public io.reactivex.Observable<TodayPosts> getTodayPosts() {
-        return service.getTodayPosts().subscribeOn(io.reactivex.schedulers.Schedulers.io());
+    public io.reactivex.Observable<TodayPosts> getTodayStories() {
+        return service.getTodayStories().subscribeOn(io.reactivex.schedulers.Schedulers.io());
     }
 
     @Override
-    public io.reactivex.Observable<List<TodayPosts.TopStoriesBean>> getTopPosts() {
-        return service.getTopPosts().subscribeOn(Schedulers.io());
+    public io.reactivex.Observable<List<TodayPosts.TopStoriesBean>> getTopStories() {
+        return service.getTopStories().subscribeOn(Schedulers.io());
     }
 
     @Override
-    public io.reactivex.Observable<BeforePosts> getBeforePosts(String date) {
-        return service.getBeforePosts(date).subscribeOn(Schedulers.io());
+    public io.reactivex.Observable<BeforePosts> getBeforeStories(String date) {
+        return service.getBeforeStories(date).subscribeOn(Schedulers.io());
     }
 
     @Nullable
     @Override
-    public io.reactivex.Observable<Detail> getPostDetail(@NonNull String postId) {
+    public io.reactivex.Observable<Detail> getStoryDetail(@NonNull String storyId) {
 
-        return service.getPostDetail(postId).subscribeOn(Schedulers.io());
+        return service.getStoryDetail(storyId).subscribeOn(Schedulers.io());
     }
 
     @Override

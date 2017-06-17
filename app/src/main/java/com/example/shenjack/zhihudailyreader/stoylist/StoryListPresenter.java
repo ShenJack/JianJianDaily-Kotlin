@@ -7,11 +7,10 @@ import com.example.shenjack.zhihudailyreader.data.BeforePosts;
 import com.example.shenjack.zhihudailyreader.data.StoriesBean;
 import com.example.shenjack.zhihudailyreader.data.TodayPosts;
 import com.example.shenjack.zhihudailyreader.data.source.StoryRepository;
+import com.example.shenjack.zhihudailyreader.storydetail.DetailActivity;
 
-import java.io.OptionalDataException;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -57,7 +56,7 @@ public class StoryListPresenter extends BasePresenter implements StoryListContra
     @Override
     public void getTodayStories(boolean forceUpdate) {
 
-        Observable<TodayPosts> todayPostsObservable = mStoryRepositiry.getTodayPosts();
+        Observable<TodayPosts> todayPostsObservable = mStoryRepositiry.getTodayStories();
         todayPostsObservable
                 .map(new Function<TodayPosts, List<StoriesBean>>() {
                     @Override
@@ -95,7 +94,7 @@ public class StoryListPresenter extends BasePresenter implements StoryListContra
     @Override
     public void fetchBeforeStories(String date) {
 
-        Observable<BeforePosts> todayPostsObservable = mStoryRepositiry.getBeforePosts(date);
+        Observable<BeforePosts> todayPostsObservable = mStoryRepositiry.getBeforeStories(date);
 //        if(todayPostsObservable!=null)Log.d("BeforePosts","------>"+todayPostsObservable.toString());
 //        else Log.d(TAG, "loadStories: Null");
         todayPostsObservable
@@ -141,8 +140,8 @@ public class StoryListPresenter extends BasePresenter implements StoryListContra
     }
 
     @Override
-    public void openStoryDetail(int storyId) {
-
+    public void openStoryDetail(int  storyId) {
+        DetailActivity.startActivity(StoryListActivity.getInstance(),storyId);
     }
 
     @Override

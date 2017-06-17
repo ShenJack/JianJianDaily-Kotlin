@@ -8,8 +8,8 @@ import com.example.shenjack.zhihudailyreader.data.Detail;
 import com.example.shenjack.zhihudailyreader.data.Post;
 import com.example.shenjack.zhihudailyreader.data.StoriesBean;
 import com.example.shenjack.zhihudailyreader.data.TodayPosts;
-import com.example.shenjack.zhihudailyreader.data.source.local.PostLocalDataSource;
-import com.example.shenjack.zhihudailyreader.data.source.remote.PostRemoteDataSource;
+import com.example.shenjack.zhihudailyreader.data.source.local.StoryLocalDataSource;
+import com.example.shenjack.zhihudailyreader.data.source.remote.StoryRemoteDataSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +22,13 @@ import static com.example.shenjack.zhihudailyreader.Util.Util.checkNotNull;
  * Created by ShenJack on 2017/6/1.
  */
 
-public class StoryRepository implements PostDataSource{
+public class StoryRepository implements StoryDataSource {
 
     private static StoryRepository instance = null;
 
-    private final PostDataSource mPostLocalDataSource;
+    private final StoryDataSource mStoryLocalDataSource;
 
-    private final PostDataSource mPostRemoteDataSource;
+    private final StoryDataSource mStoryRemoteDataSource;
 
     private List<PostRepositoryObserver> mObservers = new ArrayList<PostRepositoryObserver>();
 
@@ -46,7 +46,7 @@ public class StoryRepository implements PostDataSource{
         if(posts !=null){
             for (StoriesBean post:posts
                     ){
-                mPostLocalDataSource.savePost(post);
+                mStoryLocalDataSource.savePost(post);
             }
         }
     }
@@ -56,10 +56,10 @@ public class StoryRepository implements PostDataSource{
     }
 
 
-    public static StoryRepository getInstance(PostLocalDataSource postLocalDataSource,
-                                              PostRemoteDataSource postRemoteDataSource){
+    public static StoryRepository getInstance(StoryLocalDataSource storyLocalDataSource,
+                                              StoryRemoteDataSource postRemoteDataSource){
         if(instance == null){
-            instance = new StoryRepository(postLocalDataSource,postRemoteDataSource);
+            instance = new StoryRepository(storyLocalDataSource,postRemoteDataSource);
         }
 
         return instance;
@@ -67,39 +67,39 @@ public class StoryRepository implements PostDataSource{
 
     public static StoryRepository getInstance(){
         if(instance == null){
-            instance = new StoryRepository(PostLocalDataSource.getInstance(),PostRemoteDataSource.getInstance());
+            instance = new StoryRepository(StoryLocalDataSource.getInstance(), StoryRemoteDataSource.getInstance());
         }
 
         return instance;
     }
 
-    public StoryRepository(PostDataSource postLocalDataSource, PostDataSource postRemoteDataSource) {
-        mPostLocalDataSource = checkNotNull(postLocalDataSource);
-        mPostRemoteDataSource = checkNotNull(postRemoteDataSource);
+    public StoryRepository(StoryDataSource postLocalDataSource, StoryDataSource postRemoteDataSource) {
+        mStoryLocalDataSource = checkNotNull(postLocalDataSource);
+        mStoryRemoteDataSource = checkNotNull(postRemoteDataSource);
     }
 
 
 
     @Nullable
     @Override
-    public io.reactivex.Observable<TodayPosts> getTodayPosts() {
-        return mPostRemoteDataSource.getTodayPosts();
+    public io.reactivex.Observable<TodayPosts> getTodayStories() {
+        return mStoryRemoteDataSource.getTodayStories();
     }
 
     @Override
-    public io.reactivex.Observable<BeforePosts> getBeforePosts(String date) {
-        return mPostRemoteDataSource.getBeforePosts(date);
+    public io.reactivex.Observable<BeforePosts> getBeforeStories(String date) {
+        return mStoryRemoteDataSource.getBeforeStories(date);
     }
 
     @Override
-    public io.reactivex.Observable<List<TodayPosts.TopStoriesBean>> getTopPosts() {
-        return null;
+    public io.reactivex.Observable<List<TodayPosts.TopStoriesBean>> getTopStories() {
+        return mStoryRemoteDataSource.getTopStories();
     }
 
     @Nullable
     @Override
-    public io.reactivex.Observable<Detail> getPostDetail(@NonNull String postId) {
-        return null;
+    public io.reactivex.Observable<Detail> getStoryDetail(@NonNull String storyId) {
+        return mStoryRemoteDataSource.getStoryDetail(storyId);
     }
 
     @Override

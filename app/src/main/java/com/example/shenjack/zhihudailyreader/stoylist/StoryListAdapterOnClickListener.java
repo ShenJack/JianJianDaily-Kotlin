@@ -5,5 +5,5 @@ package com.example.shenjack.zhihudailyreader.stoylist;
  */
 
 public interface StoryListAdapterOnClickListener {
-    void onClick(int storyId);
+    void onClick(int  storyId);
 }
