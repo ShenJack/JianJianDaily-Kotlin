@@ -40,7 +40,7 @@ public interface StoryListContract {
 
         void loadStories(String data);
 
-        void openStoryDetail(int storyId);
+        void openStoryDetail(int storyId, String title);
 
         void refreshStoryList();
 

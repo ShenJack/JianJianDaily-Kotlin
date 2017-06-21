@@ -31,4 +31,8 @@ public class Util {
 
         return formattor.format(calendar.getTime());
     }
+
+    public static String generateUrl(int storyId){
+        return "https://daily.zhihu.com/story/" + storyId;
+    }
 }

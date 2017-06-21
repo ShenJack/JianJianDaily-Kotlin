@@ -6,10 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.shenjack.zhihudailyreader.viewholder.StoryViewHolder;
 import com.example.shenjack.zhihudailyreader.R;
 import com.example.shenjack.zhihudailyreader.data.StoriesBean;
 
@@ -17,15 +16,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-import butterknife.ButterKnife;
-
 import static android.content.ContentValues.TAG;
 
 /**
  * Created by ShenJack on 2017/5/30.
  */
 
-public class StoryListRecyclerViewAdapter extends RecyclerView.Adapter<StoryListRecyclerViewAdapter.StoryViewHolder> {
+public class StoryListRecyclerViewAdapter extends RecyclerView.Adapter<StoryViewHolder> {
 
 
     Context mContext;
@@ -45,17 +42,13 @@ public class StoryListRecyclerViewAdapter extends RecyclerView.Adapter<StoryList
     }
 
 
-    public void updateStoriesBeanList(List<StoriesBean> newStoriesBeanList){
-        setStoryList(newStoriesBeanList);
-        notifyDataSetChanged();
-    }
 
     @Override
     public StoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(mContext==null) Log.e("error","error");
         Log.d("pass","pass");
         View view = LayoutInflater.from(mContext).inflate(R.layout.single_post_thumbnail,null);
-        return new StoryViewHolder(view);
+        return new StoryViewHolder(view, storyListAdapterOnClickListener);
     }
 
     @Override
@@ -85,23 +78,6 @@ public class StoryListRecyclerViewAdapter extends RecyclerView.Adapter<StoryList
         return mStoryList.size();
     }
 
-    class StoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        int  storyId;
-        TextView title;
-        ImageView imageView;
-        public StoryViewHolder(View itemView) {
-            super(itemView);
-            title = ButterKnife.findById(itemView, R.id.title);
-            imageView = ButterKnife.findById(itemView,R.id.thumbnail_image);
-            itemView.setOnClickListener(this);
-        }
-        @Override
-        public void onClick(View v) {
-            storyListAdapterOnClickListener.onClick(getStoryId());
-        }
-        public int getStoryId() {
-            return storyId;
-        }
-    }
+
 
 }

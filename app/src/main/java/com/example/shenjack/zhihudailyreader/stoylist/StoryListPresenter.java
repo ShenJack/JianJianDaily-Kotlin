@@ -140,8 +140,8 @@ public class StoryListPresenter extends BasePresenter implements StoryListContra
     }
 
     @Override
-    public void openStoryDetail(int  storyId) {
-        DetailActivity.startActivity(StoryListActivity.getInstance(),storyId);
+    public void openStoryDetail(int storyId, String title) {
+        DetailActivity.startActivity(StoryListActivity.getInstance(),storyId,title);
     }
 
     @Override

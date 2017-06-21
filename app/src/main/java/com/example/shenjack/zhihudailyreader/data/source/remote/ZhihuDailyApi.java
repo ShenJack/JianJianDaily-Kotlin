@@ -20,7 +20,7 @@ import retrofit2.http.Path;
 
 public interface ZhihuDailyApi {
 
-    public final String BASE_URL = "http://news-at.zhihu.com/api/";
+    String BASE_URL = "http://news-at.zhihu.com/api/";
 
 //
 
