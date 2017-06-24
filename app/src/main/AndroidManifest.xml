@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.shenjack.zhihudailyreader">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -26,7 +27,11 @@
             android:name=".storydetail.DetailActivity"
             android:parentActivityName=".stoylist.StoryListActivity"
             android:label="@string/title_activity_detail_acticity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.shenjack.zhihudailyreader.stoylist.StoryListActivity"/>
 
         </activity>
     </application>
