@@ -41,10 +41,10 @@ class StoryListActivity : AppCompatActivity(), TopStoriesContract.View, StoryLis
         val toolbar = ButterKnife.findById<Toolbar>(this, R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_menu)
+//        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_menu)
 
-        supportActionBar!!.setHomeButtonEnabled(true)
+//        supportActionBar!!.setHomeButtonEnabled(true)
 
 
 
