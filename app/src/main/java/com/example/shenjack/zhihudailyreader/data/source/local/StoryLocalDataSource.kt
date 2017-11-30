@@ -3,10 +3,7 @@ package com.example.shenjack.zhihudailyreader.data.source.local
 import android.database.sqlite.SQLiteDatabase
 
 import com.example.shenjack.zhihudailyreader.MyApplication
-import com.example.shenjack.zhihudailyreader.data.BeforeStories
-import com.example.shenjack.zhihudailyreader.data.Detail
-import com.example.shenjack.zhihudailyreader.data.StoriesBean
-import com.example.shenjack.zhihudailyreader.data.TodayStories
+import com.example.shenjack.zhihudailyreader.data.*
 import com.example.shenjack.zhihudailyreader.data.source.StoryDataSource
 
 import io.reactivex.Observable
@@ -17,6 +14,13 @@ import io.reactivex.Observable
  */
 
 class StoryLocalDataSource : StoryDataSource {
+    override fun getFirstNightStories(): Observable<NightStories>? {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getNightStories(timestamp: Int): Observable<NightStories>? {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
 //    private val daoSession: DaoSession?
 //

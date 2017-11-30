@@ -1,19 +1,24 @@
 package com.example.shenjack.zhihudailyreader.storydetail
 
+import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.webkit.WebView
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
 
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.model.UriLoader
 import com.example.shenjack.zhihudailyreader.R
 import com.example.shenjack.zhihudailyreader.Util.Util
 import com.example.shenjack.zhihudailyreader.data.Detail
@@ -23,7 +28,9 @@ import java.net.MalformedURLException
 import java.net.URL
 
 import butterknife.ButterKnife
-import com.example.shenjack.zhihudailyreader.stoylist.StoryListActivity
+import org.jetbrains.anko.*
+import org.jetbrains.anko.appcompat.v7.alertDialogLayout
+import org.jetbrains.anko.appcompat.v7.tintedImageButton
 
 class DetailActivity : AppCompatActivity(), DetailContract.View {
 
@@ -57,15 +64,11 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
 
-
-
     }
 
     override fun onResume() {
         super.onResume()
         //        mDetailPresenter.loadStoryDetail(Integer.toString(storyId));
-
-
     }
 
     override fun onRestart() {
@@ -108,16 +111,29 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
         return true
     }
 
+    private val REQUEST_TO_SHARE_LINK: Int = 12421
+    var alertDialog:AlertDialog? = null
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_share -> {
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse(Util.generateUrl(storyId))
-                startActivity(intent)
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.type = "text/plain"
+                intent.putExtra(Intent.EXTRA_TEXT,Util.generateUrl(storyId))
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivityForResult(Intent.createChooser(intent,"Send to"),REQUEST_TO_SHARE_LINK)
+                alertDialog = alert{
+                    customView {
+                        include<RelativeLayout>(R.layout.recyclerview_loading_layout){
+                            padding = dip(10)
+                        }
+                    }
+                }.build() as AlertDialog
+                alertDialog!!.show()
             }
 
-            android.R.id.home->{
-
+            android.R.id.home -> {
                 onBackPressed()
             }
         }
@@ -139,4 +155,15 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
             context.startActivity(intent)
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode){
+            REQUEST_TO_SHARE_LINK -> {
+                alertDialog!!.hide()
+            }
+        }
+    }
+
+
 }

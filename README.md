@@ -1,6 +1,8 @@
 # JianJianDaily
 ## The Kotlin version of JianJianDaily
 
+A simple application using Zhihu Daily's api which is not public,so this is just a trying of android development of myself.
+
 
 **本软件与其代码非由知乎创作或维护。软件中所包含的信息与内容皆违反版权与知乎用户协议。
 它是一个免费软件，使用它不收取您任何费用。其中的所有内容均可在知乎获取。**

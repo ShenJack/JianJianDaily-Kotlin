@@ -1,9 +1,6 @@
 package com.example.shenjack.zhihudailyreader.data.source.remote
 
-import com.example.shenjack.zhihudailyreader.data.BeforeStories
-import com.example.shenjack.zhihudailyreader.data.Detail
-import com.example.shenjack.zhihudailyreader.data.StoriesBean
-import com.example.shenjack.zhihudailyreader.data.TodayStories
+import com.example.shenjack.zhihudailyreader.data.*
 import com.example.shenjack.zhihudailyreader.data.source.StoryDataSource
 import io.reactivex.Observable
 
@@ -16,6 +13,11 @@ import retrofit2.Retrofit
  */
 
 class StoryRemoteDataSource : StoryDataSource {
+    override fun getFirstNightStories(): Observable<NightStories>? =
+            service!!.getFirstNightStories()
+
+    override fun getNightStories(timestamp: Int): Observable<NightStories>? =
+            service!!.getNightStories(timestamp)
 
     private val service: ZhihuDailyApi?
 
@@ -28,7 +30,7 @@ class StoryRemoteDataSource : StoryDataSource {
         get() = service!!.todayStories.subscribeOn(io.reactivex.schedulers.Schedulers.io())
 
     override val topStories: io.reactivex.Observable<List<TodayStories.TopStoriesBean>>
-        get() = service!!.topStories.subscribeOn(Schedulers.io())
+        get() = service!!.getTopStories().subscribeOn(Schedulers.io())
 
     override fun getBeforeStories(date: String): io.reactivex.Observable<BeforeStories>? {
         return service!!.getBeforeStories(date)!!.subscribeOn(Schedulers.io())
@@ -45,7 +47,5 @@ class StoryRemoteDataSource : StoryDataSource {
                 if (field == null) instance = StoryRemoteDataSource()
                 return field
             }
-
-
     }
 }

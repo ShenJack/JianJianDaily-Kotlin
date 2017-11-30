@@ -1,10 +1,7 @@
 package com.example.shenjack.zhihudailyreader.data.source.remote
 
 
-import com.example.shenjack.zhihudailyreader.data.BeforeStories
-import com.example.shenjack.zhihudailyreader.data.Detail
-import com.example.shenjack.zhihudailyreader.data.Extra
-import com.example.shenjack.zhihudailyreader.data.TodayStories
+import com.example.shenjack.zhihudailyreader.data.*
 
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -30,8 +27,8 @@ interface ZhihuDailyApi {
     @get:GET("4/news/latest")
     val todayStories: Observable<TodayStories>
 
-    @get:GET("4/news/latest")
-    val topStories: Observable<List<TodayStories.TopStoriesBean>>
+    @GET("4/news/latest")
+    fun getTopStories(): Observable<List<TodayStories.TopStoriesBean>>
 
 
     //    get past news
@@ -47,6 +44,12 @@ interface ZhihuDailyApi {
 
         val BASE_URL = "http://news-at.zhihu.com/api/"
     }
+
+    @GET("3/section/1")
+    fun getFirstNightStories(): Observable<NightStories>
+
+    @GET("3/section/1/before/{id}")
+    fun getNightStories(@Path("id") id: Int): Observable<NightStories>
 
     //    get themes
 

@@ -3,6 +3,7 @@ package com.example.shenjack.zhihudailyreader.storydetail
 import android.util.Log
 
 import com.example.shenjack.zhihudailyreader.BasePresenter
+import com.example.shenjack.zhihudailyreader.BaseView
 import com.example.shenjack.zhihudailyreader.data.Detail
 import com.example.shenjack.zhihudailyreader.data.source.StoryRepository
 import com.example.shenjack.zhihudailyreader.stoylist.StoryListContract
@@ -21,6 +22,10 @@ import io.reactivex.disposables.Disposable
  */
 
 class DetailPresenter(private val mStoryRepositiry: StoryRepository, private val mStoryDetailView: DetailContract.View) : BasePresenter(), DetailContract.Presenter {
+    override fun bindView(view: BaseView<BasePresenter>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     private var mDetail: Detail? = null
 
     override fun loadStoryDetail(id: String) {

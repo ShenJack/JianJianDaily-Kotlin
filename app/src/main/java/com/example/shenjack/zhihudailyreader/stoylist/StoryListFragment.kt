@@ -72,11 +72,11 @@ class StoryListFragment : Fragment(), StoryListContract.View, SwipeRefreshLayout
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mStoryListPresenter.loadStories(date)
     }
 
     override fun onResume() {
         super.onResume()
-        mStoryListPresenter.loadStories(date)
     }
 
     private fun initView(view: View) {

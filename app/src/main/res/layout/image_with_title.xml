@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent">
 
     <ImageView
+        android:fitsSystemWindows="true"
         android:scaleType="centerCrop"
         android:id="@+id/thumbnail_image"
         android:layout_width="0dp"
@@ -22,20 +24,20 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-
+        android:fitsSystemWindows="true"
         android:background="@drawable/top_stories_title_background"
         android:textColor="@android:color/white"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:text="askghsiebnlo"
+        android:text="很长很长很长的标题"
         android:textSize="24sp"
         android:id="@+id/title"
         android:layout_width="334dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/thumbnail_image"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="18dp"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"

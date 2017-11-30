@@ -98,4 +98,5 @@
     <string name="title_activity_detail_acticity">DetailActicity</string>
     <string name="about">About</string>
     <string name="share">Share</string>
+    <string name="drawer_toggle_text">Toggle</string>
 </resources>

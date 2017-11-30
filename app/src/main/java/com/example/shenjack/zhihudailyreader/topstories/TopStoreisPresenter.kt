@@ -1,18 +1,14 @@
 package com.example.shenjack.zhihudailyreader.topstories
 
-import android.util.Log
-
 import com.example.shenjack.zhihudailyreader.data.TodayStories
 import com.example.shenjack.zhihudailyreader.data.source.StoryRepository
 import com.example.shenjack.zhihudailyreader.storydetail.DetailActivity
-import com.example.shenjack.zhihudailyreader.stoylist.StoryListActivity
+import com.example.shenjack.zhihudailyreader.MainActivity
 
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.annotations.NonNull
 import io.reactivex.disposables.Disposable
-
-import android.content.ContentValues.TAG
 
 /**
  * Created by ShenJack on 2017/6/18.
@@ -25,10 +21,10 @@ class TopStoreisPresenter(private val mTopFragment: TopStoriesContract.View) : T
 
     init {
         mStoryRepository = StoryRepository.instance
-
     }
 
     override fun loadTopStories() {
+        mTopFragment.showLoadingIndicator(true)
         val todayStories = mStoryRepository!!.todayStories
         todayStories
                 .map<List<TodayStories.TopStoriesBean>> { todayPosts -> todayPosts.top_storiesX }
@@ -48,11 +44,12 @@ class TopStoreisPresenter(private val mTopFragment: TopStoriesContract.View) : T
                     override fun onComplete() {
 
                         mTopFragment.showStories(mTopStories)
+                        mTopFragment.showLoadingIndicator(false)
                     }
                 })
     }
 
     override fun openStoryDetail(storyId: Int, title: String) {
-        DetailActivity.startActivity(StoryListActivity.instance!!, storyId, title)
+        DetailActivity.startActivity(MainActivity.instance!!, storyId, title)
     }
 }

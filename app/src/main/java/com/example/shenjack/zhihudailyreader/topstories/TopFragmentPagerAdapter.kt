@@ -34,7 +34,7 @@ class TopFragmentPagerAdapter(fm: FragmentManager, internal var mContext: Contex
     }
 
     override fun getItem(position: Int): Fragment {
-        return NewFragment.newInstance(views[position])
+        return TopFragment.newInstance(views[position])
 
     }
 
@@ -67,6 +67,7 @@ class TopFragmentPagerAdapter(fm: FragmentManager, internal var mContext: Contex
             Glide.with(mContext).load(url).into(headerImage)
 
             view.setOnClickListener { storyListAdapterOnClickListener.onClick(storyId, title!!) }
+
 
             views.add(view)
         }

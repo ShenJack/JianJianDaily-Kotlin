@@ -1,6 +1,8 @@
 package com.example.shenjack.zhihudailyreader.stoylist
 
 import com.example.shenjack.zhihudailyreader.BasePresenter
+import com.example.shenjack.zhihudailyreader.BaseView
+import com.example.shenjack.zhihudailyreader.MainActivity
 import com.example.shenjack.zhihudailyreader.Util.Util
 import com.example.shenjack.zhihudailyreader.data.StoriesBean
 import com.example.shenjack.zhihudailyreader.data.source.StoryRepository
@@ -16,9 +18,6 @@ import io.reactivex.disposables.Disposable
 
 
 import com.example.shenjack.zhihudailyreader.Util.Util.checkNotNull
-import com.example.shenjack.zhihudailyreader.data.TodayStories
-import io.reactivex.functions.Function
-import io.reactivex.rxkotlin.subscribeBy
 
 
 /**
@@ -27,6 +26,8 @@ import io.reactivex.rxkotlin.subscribeBy
 
 class StoryListPresenter(storyRepository: StoryRepository?,
                          view: StoryListContract.View) : BasePresenter(), StoryListContract.Presenter {
+    override fun bindView(view: BaseView<BasePresenter>) {
+    }
 
     private val mStoryRepositiry: StoryRepository
 
@@ -115,7 +116,7 @@ class StoryListPresenter(storyRepository: StoryRepository?,
     }
 
     override fun openStoryDetail(storyId: Int, title: String) {
-        DetailActivity.startActivity(StoryListActivity.instance!!, storyId, title)
+        DetailActivity.startActivity(MainActivity.instance!!, storyId, title)
     }
 
     override fun refreshStoryList() {

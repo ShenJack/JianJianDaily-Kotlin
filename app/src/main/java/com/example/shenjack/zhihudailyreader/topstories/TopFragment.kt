@@ -11,7 +11,7 @@ import android.view.ViewGroup
  * Created by ShenJack on 2017/6/21.
  */
 
-class NewFragment : Fragment() {
+class TopFragment : Fragment() {
     private var localView: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,11 +29,11 @@ class NewFragment : Fragment() {
     companion object {
 
 
-        fun newInstance(view: View): NewFragment {
+        fun newInstance(view: View): TopFragment {
 
             val args = Bundle()
 
-            val fragment = NewFragment()
+            val fragment = TopFragment()
             fragment.arguments = args
 
             fragment.setView(view)

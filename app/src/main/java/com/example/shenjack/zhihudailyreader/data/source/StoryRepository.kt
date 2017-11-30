@@ -1,15 +1,12 @@
 package com.example.shenjack.zhihudailyreader.data.source
 
-import com.example.shenjack.zhihudailyreader.data.BeforeStories
-import com.example.shenjack.zhihudailyreader.data.Detail
-import com.example.shenjack.zhihudailyreader.data.StoriesBean
-import com.example.shenjack.zhihudailyreader.data.TodayStories
 import com.example.shenjack.zhihudailyreader.data.source.local.StoryLocalDataSource
 import com.example.shenjack.zhihudailyreader.data.source.remote.StoryRemoteDataSource
 
 import java.util.ArrayList
 
 import com.example.shenjack.zhihudailyreader.Util.Util.checkNotNull
+import com.example.shenjack.zhihudailyreader.data.*
 import io.reactivex.Observable
 
 
@@ -18,6 +15,9 @@ import io.reactivex.Observable
  */
 
 class StoryRepository(postLocalDataSource: StoryDataSource?, postRemoteDataSource: StoryDataSource?) : StoryDataSource {
+    override fun getFirstNightStories(): Observable<NightStories>? =
+            mStoryRemoteDataSource.getFirstNightStories()
+
     override val topStories: Observable<List<TodayStories.TopStoriesBean>>
         get() = mStoryRemoteDataSource.topStories!! //To change initializer of created properties use File | Settings | File Templates.
     override val todayStories: Observable<TodayStories>
@@ -42,6 +42,10 @@ class StoryRepository(postLocalDataSource: StoryDataSource?, postRemoteDataSourc
 
     override fun getStoryDetail(storyId: String): io.reactivex.Observable<Detail>? {
         return mStoryRemoteDataSource.getStoryDetail(storyId)
+    }
+
+    override fun getNightStories(timestamp: Int): io.reactivex.Observable<NightStories>? {
+        return mStoryRemoteDataSource.getNightStories(timestamp)
     }
 
 

@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers
  */
 
 abstract class BasePresenter {
-    fun getPosts() {
+    fun getStories() {
 
     }
 
@@ -51,6 +51,8 @@ abstract class BasePresenter {
     }
 
     protected abstract fun onNext(serializable: Serializable)
+
+    protected abstract fun bindView(view : BaseView<BasePresenter>)
 
 }
 

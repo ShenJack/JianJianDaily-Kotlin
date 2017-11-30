@@ -1,9 +1,6 @@
 package com.example.shenjack.zhihudailyreader.data.source
 
-import com.example.shenjack.zhihudailyreader.data.BeforeStories
-import com.example.shenjack.zhihudailyreader.data.Detail
-import com.example.shenjack.zhihudailyreader.data.StoriesBean
-import com.example.shenjack.zhihudailyreader.data.TodayStories
+import com.example.shenjack.zhihudailyreader.data.*
 import io.reactivex.Observable
 
 /**
@@ -23,4 +20,7 @@ interface StoryDataSource {
     fun getStoryDetail(postId: String): Observable<Detail>?
 
 
+    fun getNightStories(timestamp: Int): Observable<NightStories>?
+
+    fun getFirstNightStories(): Observable<NightStories>?
 }

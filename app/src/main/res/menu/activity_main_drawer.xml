@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_daily"
+            android:icon="@drawable/ic_launcher"
+            android:checked="true"
+            android:title="日报" />
+        <item
+            android:id="@+id/nav_shitang"
+            android:icon="@drawable/ic_menu"
+            android:title="深夜食堂" />
+        <item
+            android:id="@+id/nav_before"
+            android:icon="@drawable/ic_add"
+            android:title="历史上某一天" />
+
+    </group>
+</menu>

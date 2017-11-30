@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    app:statusBarBackground="@android:color/darker_gray"
+
+    tools:context=".MainActivity"
+    >
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/list_app_bar"
@@ -24,7 +27,7 @@
             app:contentScrim="@color/more_dark_transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:statusBarScrim="@android:color/transparent"
-            android:minHeight="?attr/actionBarSize"
+
             app:titleEnabled="false">
 
 
